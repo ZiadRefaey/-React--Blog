@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./Pages/Home";
+import PostPage from "./Pages/PostPage";
 
 function App() {
   const [theme, setTheme] = useState<string | null>(
@@ -19,6 +20,7 @@ function App() {
         <Header />
         <Routes>
           <Route element={<Home />} path="/" />
+          <Route element={<PostPage />} path="/posts/:id" />
         </Routes>
       </div>
     </BrowserRouter>
