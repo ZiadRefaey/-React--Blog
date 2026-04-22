@@ -19,7 +19,7 @@ export default function Navbar() {
             className={({ isActive }) =>
               `${isActive ? "text-primary underline" : " text-secondary hover:text-primary"}  transition`
             }
-            to={"/posts"}
+            to={"/create-post"}
           >
             Create a post
           </NavLink>
