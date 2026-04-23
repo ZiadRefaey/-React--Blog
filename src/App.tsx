@@ -11,7 +11,7 @@ function App() {
   const [theme, setTheme] = useState<string | null>(
     localStorage.getItem("theme") ?? "dark",
   );
-  function changeThemeHandler() {
+  function handleToggleTheme() {
     const newTheme = theme === "dark" ? "light" : "dark";
     localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
@@ -21,7 +21,7 @@ function App() {
       <div
         className={`${theme} bg-background min-w-full min-h-screen text-mute `}
       >
-        <Header />
+        <Header theme={theme} handleToggleTheme={handleToggleTheme} />
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<PostPage />} path="/posts/:id" />
