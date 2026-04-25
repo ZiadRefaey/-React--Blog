@@ -15,10 +15,10 @@ export default function AuthDetails() {
       <div className="w-[60%] rounded-xl overflow-hidden relative">
         <img src="/auth.png" className="w-full h-full object-cover" alt="" />
         <div className="absolute bottom-6 left-6 w-[100%-48px] flex items-start justify-center flex-col">
-          <p className="flex items-center justify-center gap-2 text-tertiary-text">
+          <div className="flex items-center justify-center gap-2 text-tertiary-text">
             <div className="w-6 h-px bg-tertiary-text"></div>
-            Featured Builds
-          </p>
+            <p>Featured Builds</p>
+          </div>
           <p>Hwei: The Visionary's Path</p>
         </div>
       </div>
