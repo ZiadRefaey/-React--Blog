@@ -1,3 +1,4 @@
+import { useLocation } from "react-router";
 import Avatar from "./Avatar";
 import MoonIcon from "./MoonIcon";
 import Navbar from "./Navbar";
@@ -11,8 +12,12 @@ export default function Header({
   handleToggleTheme: () => void;
   theme: string | null;
 }) {
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
-    <header className="w-full py-4 px-6 xl:px-0 grid grid-cols-3 max-w-7xl mx-auto">
+    <header
+      className={`${pathname === "/auth" ? "hidden" : ""} w-full py-4 px-6 xl:px-0 grid grid-cols-3 max-w-7xl mx-auto`}
+    >
       <img src={Logo} alt="logo" />
       <Navbar />
       <div className="flex items-center justify-center justify-self-end gap-3">

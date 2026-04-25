@@ -9,6 +9,7 @@
   --color-card-background: rgba(17, 29, 38, 1);
   --color-mute: rgba(215, 228, 241, 1);
   --color-mute-secondary: rgba(192, 199, 207, 1);
+  --color-input: rgba(42, 54, 64, 1);
 }
 @layer base {
   .dark {
@@ -21,6 +22,7 @@
     --color-card-background: rgba(17, 29, 38, 1);
     --color-mute: rgba(215, 228, 241, 1);
     --color-mute-secondary: rgba(192, 199, 207, 1);
+    --color-input: rgba(42, 54, 64, 1);
   }
 
   .light {
@@ -31,5 +33,6 @@
     --color-tertiary-text: rgba(90, 70, 30, 1);
     --color-neutral: rgba(245, 248, 250, 1);
     --color-card-background: rgba(17, 39, 38, 1);
+    --color-input: rgba(42, 54, 64, 1);
   }
 }

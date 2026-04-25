@@ -19,8 +19,9 @@ function App() {
   return (
     <BrowserRouter>
       <div
-        className={`${theme} bg-background min-w-full min-h-screen text-mute `}
+        className={`${theme} bg-background min-w-full min-h-screen text-mute relative `}
       >
+        <img src="/Blur.svg" className="absolute -top-55.5 -left-42" alt="" />
         <Header theme={theme} handleToggleTheme={handleToggleTheme} />
         <Routes>
           <Route element={<Home />} path="/" />

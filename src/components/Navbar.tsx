@@ -23,6 +23,16 @@ export default function Navbar() {
             Create a post
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "text-primary underline" : " text-secondary hover:text-primary"}  transition`
+            }
+            to={"/auth"}
+          >
+            Authentication
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
