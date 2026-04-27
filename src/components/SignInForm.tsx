@@ -1,19 +1,59 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 import Envelope from "./Envelope";
 import Input from "./Input";
 import Lock from "./Lock";
+import { UserAuth } from "../providers/AuthContext";
+
+interface Inputs {
+  email: string;
+  password: string;
+}
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "string") {
+    return error;
+  }
+
+  return "Something went wrong. Please try again.";
+}
 
 export default function SignInForm() {
-  interface Inputs {
-    email: string;
-    password: string;
-  }
+  const navigate = useNavigate();
+  const { signInUser } = UserAuth();
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setAuthError(null);
+    setIsSigningIn(true);
+
+    const result = await signInUser({
+      email: data.email,
+      password: data.password,
+    });
+
+    setIsSigningIn(false);
+
+    if (!result?.success) {
+      setAuthError(getErrorMessage(result?.error));
+      return;
+    }
+
+    toast.success("Signed in successfully.");
+    navigate("/");
+  };
+
   return (
     <div className="flex items-start justify-center flex-col gap-5 w-full">
       <div>
@@ -58,14 +98,20 @@ export default function SignInForm() {
               message: "Minimum 6 characters",
             },
             pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
-              message: "Must contain letters and numbers",
+              value:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+              message:
+                "Must contain one lowercase letter, one uppercase letter, one number, and one special character",
             },
           }}
           error={errors.password?.message}
         />
-        <button className="w-full rounded-xl bg-primary cursor-pointer text-background font-bold py-4 hover:shadow shadow-primary transition ">
-          Sign In to Archive
+        {authError && <p className="text-sm text-red-400">{authError}</p>}
+        <button
+          disabled={isSigningIn}
+          className="w-full rounded-xl bg-primary cursor-pointer text-background font-bold py-4 hover:shadow shadow-primary transition disabled:cursor-not-allowed disabled:opacity-70 "
+        >
+          {isSigningIn ? "Signing in..." : "Sign In to Archive"}
         </button>
       </form>
     </div>

@@ -1,23 +1,61 @@
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import Envelope from "./Envelope";
 import Input from "./Input";
 import Lock from "./Lock";
 import UserIcon from "./UserIcon";
+import { UserAuth } from "../providers/AuthContext";
 
-export default function SignUpForm() {
-  interface Inputs {
-    fullName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+interface Inputs {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+type SignUpFormProps = {
+  setActiveForm: React.Dispatch<React.SetStateAction<"sign-in" | "sign-up">>;
+};
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
   }
+
+  if (typeof error === "string") {
+    return error;
+  }
+
+  return "Something went wrong. Please try again.";
+}
+
+export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
+  const { signUpNewUser } = UserAuth();
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setAuthError(null);
+    setIsSigningUp(true);
+
+    const result = await signUpNewUser(data.email, data.password);
+
+    setIsSigningUp(false);
+
+    if (!result.success) {
+      setAuthError(getErrorMessage(result.error));
+      return;
+    }
+
+    toast.success("Account created successfully.");
+    setActiveForm("sign-in");
+  };
 
   return (
     <div className="flex items-start justify-center flex-col gap-5 w-full">
@@ -82,8 +120,10 @@ export default function SignUpForm() {
               message: "Minimum 6 characters",
             },
             pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/,
-              message: "Must contain letters and numbers",
+              value:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+              message:
+                "Must contain one lowercase letter, one uppercase letter, one number, and one special character",
             },
           }}
           error={errors.password?.message}
@@ -102,8 +142,12 @@ export default function SignUpForm() {
           }}
           error={errors.confirmPassword?.message}
         />
-        <button className="w-full rounded-xl bg-primary cursor-pointer text-background font-bold py-4 hover:shadow shadow-primary transition ">
-          Register
+        {authError && <p className="text-sm text-red-400">{authError}</p>}
+        <button
+          disabled={isSigningUp}
+          className="w-full rounded-xl bg-primary cursor-pointer text-background font-bold py-4 hover:shadow shadow-primary transition disabled:cursor-not-allowed disabled:opacity-70 "
+        >
+          {isSigningUp ? "Creating account..." : "Register"}
         </button>
       </form>
     </div>

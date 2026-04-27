@@ -6,9 +6,11 @@ export default function AuthForms() {
   const [activeForm, setActiveForm] = useState<"sign-in" | "sign-up">(
     "sign-in",
   );
+
   function handleSwitchForm(form: typeof activeForm) {
     setActiveForm(form);
   }
+
   return (
     <div className="w-full h-full flex items-start justify-center flex-col p-12 gap-5 ">
       <div className="bg-slate-800 w-full p-1 grid grid-cols-2 rounded-xl gap-2">
@@ -25,7 +27,11 @@ export default function AuthForms() {
           Sign up
         </button>
       </div>
-      {activeForm === "sign-in" ? <SignInForm /> : <SignUpForm />}
+      {activeForm === "sign-in" ? (
+        <SignInForm />
+      ) : (
+        <SignUpForm setActiveForm={setActiveForm} />
+      )}
     </div>
   );
 }
