@@ -4,22 +4,19 @@ import { formatDate } from "../utils/utils";
 
 export default function usePost(id?: string) {
   return useQuery({
-    queryKey: ["posts"],
+    queryKey: ["post"],
     queryFn: async () => {
-      if (id) {
-        const { data, error } = await supabase
-          .from("posts")
-          .select("*")
-          .eq("id", id);
-        if (error) throw error;
-        return data;
-      }
-      const { data, error } = await supabase.from("posts").select("*");
+      const { data, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("id", id)
+        .single();
       if (error) throw error;
-      const formattedData = data.map((entry) => ({
-        ...entry,
-        created_at: formatDate(entry.created_at),
-      }));
+
+      const formattedData = {
+        ...data,
+        created_at: formatDate(data.created_at),
+      };
       return formattedData;
     },
   });

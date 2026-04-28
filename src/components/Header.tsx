@@ -13,7 +13,6 @@ export default function Header({
   theme: string | null;
 }) {
   const { pathname } = useLocation();
-  console.log(pathname);
   return (
     <header
       className={`${pathname === "/auth" ? "hidden" : ""} w-full py-4 px-6 xl:px-0 grid grid-cols-3 max-w-7xl mx-auto`}

@@ -9,7 +9,8 @@ export default function useProfile(id?: string) {
         const { data, error } = await supabase
           .from("Profiles")
           .select("*")
-          .eq("id", id);
+          .eq("id", id)
+          .single();
         if (error) return error;
         return data;
       } else {

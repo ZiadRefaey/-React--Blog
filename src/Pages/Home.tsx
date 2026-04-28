@@ -1,9 +1,9 @@
 import Main from "../components/Main";
 import Post from "../components/Post";
-import usePost from "../hooks/usePost";
+import usePosts from "../hooks/usePosts";
 
 export default function Home() {
-  const { data: posts, isPending, error, isError } = usePost();
+  const { data: posts, isPending, error, isError } = usePosts();
   if (isPending) {
     return <div>Loading...</div>;
   }
