@@ -6,6 +6,7 @@ import Input from "./Input";
 import Lock from "./Lock";
 import UserIcon from "./UserIcon";
 import { UserAuth } from "../providers/AuthContext";
+import useCreateProfile from "../hooks/useCreateProfile";
 
 interface Inputs {
   fullName: string;
@@ -33,6 +34,7 @@ function getErrorMessage(error: unknown) {
 export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
   const { signUpNewUser } = UserAuth();
   const [authError, setAuthError] = useState<string | null>(null);
+  const mutation = useCreateProfile();
   const [isSigningUp, setIsSigningUp] = useState(false);
   const {
     register,
@@ -43,7 +45,7 @@ export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setAuthError(null);
     setIsSigningUp(true);
-
+    mutation.mutate({ fullName: data.fullName, email: data.email });
     const result = await signUpNewUser(data.email, data.password);
 
     setIsSigningUp(false);
@@ -52,7 +54,9 @@ export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
       setAuthError(getErrorMessage(result.error));
       return;
     }
-
+    if (mutation.error) {
+      setAuthError(mutation.error.message);
+    }
     toast.success("Account created successfully.");
     setActiveForm("sign-in");
   };
@@ -147,7 +151,9 @@ export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
           disabled={isSigningUp}
           className="w-full rounded-xl bg-primary cursor-pointer text-background font-bold py-4 hover:shadow shadow-primary transition disabled:cursor-not-allowed disabled:opacity-70 "
         >
-          {isSigningUp ? "Creating account..." : "Register"}
+          {isSigningUp || mutation.isPending
+            ? "Creating account..."
+            : "Register"}
         </button>
       </form>
     </div>
