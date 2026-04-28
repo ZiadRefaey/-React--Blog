@@ -44,7 +44,7 @@ export default function AddImage() {
           </p>
 
           <p className="mt-1 text-sm text-slate-400">
-            Hex-tech high-res recommended (1920×820)
+            High resolution recommended
           </p>
         </div>
       </label>

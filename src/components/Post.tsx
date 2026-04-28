@@ -1,26 +1,33 @@
 import { Link } from "react-router";
-import thumbnail from "/PostThumbnail.png";
-export default function Post() {
+interface IPostData {
+  id: string;
+  createdAt?: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+}
+export default function Post({
+  title,
+  content,
+  imageUrl,
+  id,
+  createdAt,
+}: IPostData) {
   return (
-    <div className="rounded-xl  grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-[600px]">
+    <div className="rounded-xl  grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
       <div className="w-full h-[60%] object-cover relative">
         <span className="px-4 py-1 text-xs text-background font-bold uppercase bg-secondary absolute top-4 left-4 rounded-lg">
           Ionia
         </span>
         <img
-          src={thumbnail}
-          alt="post thumbnail"
+          src={imageUrl}
+          alt={`${title}'s image`}
           className="w-full h-full object-cover"
         />
       </div>
       <div className="w-full p-6 flex items-start justify-center gap-4 flex-col ">
-        <p className="text-mute font-bold text-xl">
-          The Unbreakable Guard: Hwei Strategy
-        </p>
-        <p className="text-mute text-sm ">
-          Master the complexity of the Visionary with our comprehensive guide to
-          his 10 unique abilities and combo
-        </p>
+        <p className="text-mute font-bold text-xl">{title}</p>
+        <p className="text-mute text-sm ">{content}</p>
         <div className="w-full h-[0.25px] border border-mute/10 "></div>
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center justify-center gap-2 text-mute-secondary">
@@ -35,13 +42,14 @@ export default function Post() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
               />
             </svg>
-            <p className="text-xs">Posted 5 mminutes ago</p>
+
+            <p className="text-xs">{createdAt}</p>
           </div>
           <Link
-            to={"./posts/1"}
+            to={`./posts/${id}`}
             className="text-secondary hover:text-primary font-bold cursor-pointer transition"
           >
             Read More
