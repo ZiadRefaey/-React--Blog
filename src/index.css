@@ -26,13 +26,15 @@
   }
 
   .light {
-    --color-primary: rgba(10, 200, 185, 1);
-    --color-primary-text: rgba(0, 70, 65, 1);
-    --color-secondary: rgba(0, 90, 130, 1);
-    --color-tertiary: rgba(200, 170, 110, 1);
-    --color-tertiary-text: rgba(90, 70, 30, 1);
-    --color-neutral: rgba(245, 248, 250, 1);
-    --color-card-background: rgba(17, 39, 38, 1);
-    --color-input: rgba(42, 54, 64, 1);
+    --color-primary: rgba(0, 150, 136, 1);
+    --color-primary-text: rgba(235, 255, 252, 1);
+    --color-secondary: rgba(37, 99, 235, 1);
+    --color-tertiary: rgba(180, 83, 9, 1);
+    --color-tertiary-text: rgba(120, 53, 15, 1);
+    --color-background: rgba(247, 250, 252, 1);
+    --color-card-background: rgba(255, 255, 255, 1);
+    --color-mute: rgba(15, 23, 42, 1);
+    --color-mute-secondary: rgba(71, 85, 105, 1);
+    --color-input: rgba(241, 245, 249, 1);
   }
 }

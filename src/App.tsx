@@ -8,7 +8,6 @@ import PostPage from "./Pages/PostPage";
 import Authentication from "./Pages/Authentication";
 import CreatePostPage from "./Pages/CreatePostPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import useProfile from "./hooks/useProfile";
 
 function App() {
   const [theme, setTheme] = useState<string | null>(
