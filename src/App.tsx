@@ -6,8 +6,8 @@ import { Toaster } from "react-hot-toast";
 import Home from "./Pages/Home";
 import PostPage from "./Pages/PostPage";
 import Authentication from "./Pages/Authentication";
-import CreatePostPage from "./Pages/CreatePostPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import PostFormPage from "./Pages/PostFormPage";
 
 function App() {
   const [theme, setTheme] = useState<string | null>(
@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<PostPage />} path="/posts/:id" />
-          <Route element={<CreatePostPage />} path="/create-post" />
+          <Route element={<PostFormPage />} path="/post-form/:id" />
           <Route element={<Authentication />} path="/auth" />
         </Routes>
       </div>

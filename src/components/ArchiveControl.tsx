@@ -1,10 +1,27 @@
 export default function ArchiveControl({
   isUploading,
   isCreating,
+  mode,
 }: {
   isUploading: boolean;
   isCreating: boolean;
+  mode: "ADD" | "EDIT";
 }) {
+  let buttonText;
+  if (mode === "ADD") {
+    if (isCreating || isUploading) {
+      buttonText = "Publishing...";
+    } else {
+      buttonText = "Publish To Archive";
+    }
+  }
+  if (mode === "EDIT") {
+    if (isCreating || isUploading) {
+      buttonText = "Editing...";
+    } else {
+      buttonText = "Edit The Archive";
+    }
+  }
   return (
     <div className="bg-card-background p-4 rounded-xl w-full">
       <p className="flex items-center justify-start gap-4 text-tertiary-text font-bold">
@@ -42,7 +59,8 @@ export default function ArchiveControl({
             d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
           />
         </svg>
-        {isCreating || isUploading ? "Publishing Post..." : "Release To Public"}
+
+        {buttonText}
       </button>
       <div className="bg-background h-px w-full rounded-xl m-3"></div>
       <div className="grid grid-cols-2 font-semibold">

@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabaseClient";
 import { formatDate } from "../utils/utils";
 
-export default function usePost(id?: string) {
+export default function usePost(id?: string, enable = true) {
   return useQuery({
-    queryKey: ["post"],
+    queryKey: ["post", id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("posts")
@@ -19,5 +19,6 @@ export default function usePost(id?: string) {
       };
       return formattedData;
     },
+    enabled: enable,
   });
 }

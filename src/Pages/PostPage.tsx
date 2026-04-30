@@ -15,10 +15,6 @@ export default function PostPage() {
       <h1 className="text-5xl font-bold text-mute max-w-xl leading-16">
         {post.title}
       </h1>
-      {/* <p className="text-lg text-mute-secondary mt-5 max-w-2xl">
-        An exhaustive exploration into Viego’s evolving role in the current meta
-        and the narrative weight of the Camavoran tragedy.
-      </p> */}
       <div>
         <div className="w-full h-100 object-cover mt-10 rounded-xl overflow-hidden">
           <img

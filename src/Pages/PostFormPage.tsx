@@ -2,43 +2,87 @@ import Main from "../components/Main";
 import AddImage from "../components/AddImage";
 import AddTags from "../components/AddTags";
 import ArchiveControl from "../components/ArchiveControl";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import useUploadImg from "../hooks/useUploadImg";
 import useCreatePost from "../hooks/useCreatePost";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import { UserAuth } from "../providers/AuthContext";
+import usePost from "../hooks/usePost";
+import useEditPost from "../hooks/useEditPost";
 export interface IPostInputs {
   title: string;
   content: string;
   image: FileList;
 }
-export default function CreatePostPage() {
+export default function PostFormPage() {
   const navigate = useNavigate();
+  const { session } = UserAuth();
+  const { id } = useParams();
+  const mode = id === "create-post" ? "ADD" : "EDIT";
+  const enabled = mode === "EDIT" ? true : false;
+  const { data: postData } = usePost(id, enabled);
+
   const {
     mutateAsync: uploadImage,
     isPending: isUploading,
     error: uploadError,
   } = useUploadImg();
+
   const {
     mutate: createPost,
     isPending: isCreating,
     error: createError,
   } = useCreatePost();
   const {
+    mutateAsync: editPost,
+    isPending: isEditing,
+    error: editError,
+  } = useEditPost();
+  const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<IPostInputs>();
-  const { session } = UserAuth();
-  console.log(session);
+  } = useForm<IPostInputs>({
+    defaultValues: { content: "", title: "" },
+  });
+
+  useEffect(() => {
+    if (mode === "EDIT" && postData) {
+      reset({
+        content: postData.content,
+        title: postData.title,
+      });
+    }
+  }, [mode, postData, reset]);
+
   const onSubmit: SubmitHandler<IPostInputs> = async (data) => {
-    const image = data.image[0];
-    const uploadedImgURL = await uploadImage(image);
+    const image = data.image?.[0];
+    const imageUrl =
+      mode === "EDIT" && !image
+        ? postData?.image_url
+        : (await uploadImage(image)).publicUrl;
+
+    if (mode === "EDIT" && id) {
+      await editPost({
+        id,
+        content: data.content,
+        image_url: imageUrl,
+        title: data.title,
+        user_id: session?.user.id,
+      });
+      toast.success("Post Edited Successfully");
+      navigate("/");
+      return;
+    }
+
     createPost({
       content: data.content,
-      image_url: uploadedImgURL.publicUrl,
+      image_url: imageUrl,
       title: data.title,
+      user_id: session?.user.id,
     });
     toast.success("Post Created Successfully");
     navigate("/");
@@ -72,8 +116,11 @@ export default function CreatePostPage() {
             <AddImage
               register={register}
               name="image"
+              previewImageUrl={
+                mode === "EDIT" ? postData?.image_url : undefined
+              }
               validation={{
-                required: "Image is required",
+                required: mode === "ADD" ? "Image is required" : false,
               }}
             />
             {errors.image && (
@@ -99,10 +146,16 @@ export default function CreatePostPage() {
         </div>
         <div className="flex items-center justify-center flex-col gap-4">
           <div className="w-full">
-            <ArchiveControl isUploading={isUploading} isCreating={isCreating} />
-            {(uploadError || createError) && (
+            <ArchiveControl
+              mode={mode}
+              isUploading={isUploading}
+              isCreating={isCreating || isEditing}
+            />
+            {(uploadError || createError || editError) && (
               <p className="text-red-400">
-                {uploadError?.message || createError?.message}
+                {uploadError?.message ||
+                  createError?.message ||
+                  editError?.message}
               </p>
             )}
           </div>

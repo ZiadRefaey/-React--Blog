@@ -10,14 +10,17 @@ interface IAddImage<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
   validation?: RegisterOptions<T, Path<T>>;
+  previewImageUrl?: string;
 }
 export default function AddImage<T extends FieldValues>({
   register,
   name,
   validation,
+  previewImageUrl,
 }: IAddImage<T>) {
   const [preview, setPreview] = useState<string | null>(null);
   const imageRegister = register(name, validation);
+  const displayedPreview = preview ?? previewImageUrl;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -44,9 +47,9 @@ export default function AddImage<T extends FieldValues>({
         htmlFor="featured-image"
         className="group relative flex min-h-55 w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border border-slate-800 bg-[radial-gradient(circle_at_center,rgba(0,180,255,0.08),transparent_55%),linear-gradient(to_bottom,#071521,#091827)] p-6 transition hover:border-cyan-500/40"
       >
-        {preview ? (
+        {displayedPreview ? (
           <img
-            src={preview}
+            src={displayedPreview}
             alt="Preview"
             className="absolute inset-0 h-full w-full object-cover"
           />

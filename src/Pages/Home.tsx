@@ -21,6 +21,7 @@ export default function Home() {
           imageUrl={post.image_url}
           id={post.id}
           createdAt={post.created_at}
+          userId={post.profiles.id}
         />
       ))}
     </Main>

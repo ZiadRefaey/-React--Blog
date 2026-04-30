@@ -1,14 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../supabaseClient";
 import { queryClient } from "../main";
-
+export interface IPost {
+  title: string;
+  content: string;
+  image_url: string;
+  user_id?: string | undefined;
+}
 export default function useCreatePost() {
   return useMutation({
-    mutationFn: async (postBody: {
-      title: string;
-      content: string;
-      image_url: string;
-    }) => {
+    mutationFn: async (postBody: IPost) => {
       const { data, error } = await supabase
         .from("posts")
         .insert([postBody])

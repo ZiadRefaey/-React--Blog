@@ -8,7 +8,7 @@ export default function usePosts() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("posts")
-        .select("*,Profiles (*)");
+        .select("*,profiles (*)");
       if (error) throw error;
       const formattedData = data.map((entry) => ({
         ...entry,

@@ -1,12 +1,15 @@
 import { Link } from "react-router";
 import TrashIcon from "./Icons/TrashIcon";
 import PencilIcon from "./Icons/PencilIcon";
+import { useEffect, useState } from "react";
+import { UserAuth } from "../providers/AuthContext";
 interface IPostData {
   id: string;
   createdAt?: string;
   title: string;
   content: string;
   imageUrl: string;
+  userId: string;
 }
 export default function Post({
   title,
@@ -14,15 +17,32 @@ export default function Post({
   imageUrl,
   id,
   createdAt,
+  userId,
 }: IPostData) {
+  const { session } = UserAuth();
+  const [postBelongsToUser, setPostBelongsToUser] = useState(false);
+  const currentUserId = session?.user.id;
+  useEffect(() => {
+    if (currentUserId === userId) {
+      setPostBelongsToUser(true);
+    }
+  }, [userId, currentUserId]);
   return (
     <div className="rounded-xl relative grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
-      <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-4 z-100 p-1 transition hover:text-red-500">
-        <TrashIcon />
-      </button>
-      <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-14 z-100 p-1 transition hover:text-primary">
-        <PencilIcon />
-      </button>
+      {postBelongsToUser && (
+        <>
+          <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-4 z-100 p-1 transition hover:text-red-500">
+            <TrashIcon />
+          </button>
+          <Link
+            to={`/post-form/${id}`}
+            className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-14 z-100 p-1 transition hover:text-primary"
+          >
+            <PencilIcon />
+          </Link>
+        </>
+      )}
+
       <div className="w-full h-[60%] object-cover relative">
         <span className="px-4 py-1 text-xs text-background font-bold uppercase bg-secondary absolute top-4 left-4 rounded-lg">
           Ionia
