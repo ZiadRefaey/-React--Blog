@@ -7,3 +7,7 @@ export function formatDate(dateString: string) {
 
   return `${month}-${day}-${year}`;
 }
+export function truncateString(text: string, noOfWords: number) {
+  const truncatedText = text.split(" ").slice(0, noOfWords).join(" ");
+  return `${truncatedText}...`;
+}

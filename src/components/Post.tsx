@@ -3,6 +3,7 @@ import TrashIcon from "./Icons/TrashIcon";
 import PencilIcon from "./Icons/PencilIcon";
 import { useEffect, useState } from "react";
 import { UserAuth } from "../providers/AuthContext";
+import { truncateString } from "../utils/utils";
 interface IPostData {
   id: string;
   createdAt?: string;
@@ -11,6 +12,7 @@ interface IPostData {
   imageUrl: string;
   userId: string;
 }
+
 export default function Post({
   title,
   content,
@@ -55,7 +57,7 @@ export default function Post({
       </div>
       <div className="w-full p-6 flex items-start justify-center gap-4 flex-col ">
         <p className="text-mute font-bold text-xl">{title}</p>
-        <p className="text-mute text-sm ">{content}</p>
+        <p className="text-mute text-sm ">{truncateString(content, 30)}</p>
         <div className="w-full h-[0.25px] border border-mute/10 "></div>
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center justify-center gap-2 text-mute-secondary">
