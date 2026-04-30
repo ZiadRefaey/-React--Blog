@@ -1,6 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Session } from "@supabase/supabase-js";
+import type { AuthError, Session, User } from "@supabase/supabase-js";
 import { supabase } from "../supabaseClient";
+
+type SignUpResult =
+  | {
+      success: true;
+      data: { user: User | null; session: Session | null };
+      error: null;
+    }
+  | {
+      success: false;
+      data: null;
+      error: AuthError;
+    };
 
 type AuthContextValue = {
   signOut: () => Promise<void>;
@@ -14,7 +26,7 @@ type AuthContextValue = {
   signUpNewUser: (
     email: string,
     password: string,
-  ) => Promise<{ success: boolean; data?: unknown; error?: unknown }>;
+  ) => Promise<SignUpResult>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -26,7 +38,10 @@ export function AuthContextProvider({
 }) {
   const [session, setSession] = useState<Session | null>(null);
 
-  async function signUpNewUser(email: string, password: string) {
+  async function signUpNewUser(
+    email: string,
+    password: string,
+  ): Promise<SignUpResult> {
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,

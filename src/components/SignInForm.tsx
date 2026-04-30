@@ -2,9 +2,9 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
-import Envelope from "./Envelope";
+import Envelope from "./Icons/Envelope";
 import Input from "./Input";
-import Lock from "./Lock";
+import Lock from "./Icons/Lock";
 import { UserAuth } from "../providers/AuthContext";
 
 interface Inputs {

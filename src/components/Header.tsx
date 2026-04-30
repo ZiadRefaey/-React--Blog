@@ -2,7 +2,7 @@ import { useLocation } from "react-router";
 import Avatar from "./Avatar";
 import MoonIcon from "./MoonIcon";
 import Navbar from "./Navbar";
-import SunIcon from "./SunIcon";
+import SunIcon from "./Icons/SunIcon";
 import Logo from "/logo.svg";
 
 export default function Header({

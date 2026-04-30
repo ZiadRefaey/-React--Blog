@@ -7,6 +7,7 @@ import useUploadImg from "../hooks/useUploadImg";
 import useCreatePost from "../hooks/useCreatePost";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { UserAuth } from "../providers/AuthContext";
 export interface IPostInputs {
   title: string;
   content: string;
@@ -29,6 +30,8 @@ export default function CreatePostPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<IPostInputs>();
+  const { session } = UserAuth();
+  console.log(session);
   const onSubmit: SubmitHandler<IPostInputs> = async (data) => {
     const image = data.image[0];
     const uploadedImgURL = await uploadImage(image);

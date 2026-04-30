@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import Envelope from "./Envelope";
+import Envelope from "./Icons/Envelope";
 import Input from "./Input";
-import Lock from "./Lock";
-import UserIcon from "./UserIcon";
+import Lock from "./Icons/Lock";
+import UserIcon from "./Icons/UserIcon";
 import { UserAuth } from "../providers/AuthContext";
 import useCreateProfile from "../hooks/useCreateProfile";
 
@@ -45,15 +45,29 @@ export default function SignUpForm({ setActiveForm }: SignUpFormProps) {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setAuthError(null);
     setIsSigningUp(true);
-    mutation.mutate({ fullName: data.fullName, email: data.email });
     const result = await signUpNewUser(data.email, data.password);
 
-    setIsSigningUp(false);
-
     if (!result.success) {
+      setIsSigningUp(false);
       setAuthError(getErrorMessage(result.error));
       return;
     }
+
+    if (!result.data.user) {
+      setIsSigningUp(false);
+      setAuthError("Account created, but no user id was returned.");
+      return;
+    }
+
+    mutation.mutate({
+      fullName: data.fullName,
+      email: data.email,
+      id: result.data.user.id,
+    });
+    console.log(result);
+
+    setIsSigningUp(false);
+
     if (mutation.error) {
       setAuthError(mutation.error.message);
     }

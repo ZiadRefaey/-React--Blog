@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import TrashIcon from "./Icons/TrashIcon";
+import PencilIcon from "./Icons/PencilIcon";
 interface IPostData {
   id: string;
   createdAt?: string;
@@ -14,7 +16,13 @@ export default function Post({
   createdAt,
 }: IPostData) {
   return (
-    <div className="rounded-xl  grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
+    <div className="rounded-xl relative grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
+      <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-4 z-100 p-1 transition hover:text-red-500">
+        <TrashIcon />
+      </button>
+      <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-14 z-100 p-1 transition hover:text-primary">
+        <PencilIcon />
+      </button>
       <div className="w-full h-[60%] object-cover relative">
         <span className="px-4 py-1 text-xs text-background font-bold uppercase bg-secondary absolute top-4 left-4 rounded-lg">
           Ionia
