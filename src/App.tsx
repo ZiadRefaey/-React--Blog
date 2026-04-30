@@ -25,7 +25,11 @@ function App() {
       <div
         className={`${theme} bg-background min-w-full min-h-screen text-mute relative `}
       >
-        <img src="/Blur.svg" className="absolute -top-55.5 -left-42" alt="" />
+        <img
+          src="/Blur.svg"
+          className="absolute -top-55.5 -left-42 z-1"
+          alt=""
+        />
         <Toaster position="top-right" />
         <Header theme={theme} handleToggleTheme={handleToggleTheme} />
         <Routes>

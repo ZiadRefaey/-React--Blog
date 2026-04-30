@@ -7,7 +7,7 @@ export default function useUploadImg() {
       //using date to avoid any duplicate files
       const filePath = `${Date.now()}-${file.name}`;
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from("post_images")
         .upload(filePath, file);
 
@@ -15,8 +15,10 @@ export default function useUploadImg() {
         console.error(error);
         throw error;
       }
-
-      return data;
+      const { data: imageURL } = supabase.storage
+        .from("post_images")
+        .getPublicUrl(filePath);
+      return imageURL;
     },
   });
 }

@@ -8,7 +8,9 @@ export default function Main({
   className: string;
 }) {
   return (
-    <main className={`${className} w-full max-w-7xl mx-auto text-muted`}>
+    <main
+      className={`${className} w-full max-w-7xl mx-auto text-muted relative z-10`}
+    >
       {children}
     </main>
   );
