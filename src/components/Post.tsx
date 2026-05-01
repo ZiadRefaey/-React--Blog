@@ -4,6 +4,9 @@ import PencilIcon from "./Icons/PencilIcon";
 import { useEffect, useState } from "react";
 import { UserAuth } from "../providers/AuthContext";
 import { truncateString } from "../utils/utils";
+import Modal from "./Modal";
+import useDeletePost from "../hooks/useDeletePost";
+import toast from "react-hot-toast";
 interface IPostData {
   id: string;
   createdAt?: string;
@@ -22,6 +25,7 @@ export default function Post({
   userId,
 }: IPostData) {
   const { session } = UserAuth();
+  const [modalOpen, setModalOpen] = useState(false);
   const [postBelongsToUser, setPostBelongsToUser] = useState(false);
   const currentUserId = session?.user.id;
   useEffect(() => {
@@ -29,11 +33,28 @@ export default function Post({
       setPostBelongsToUser(true);
     }
   }, [userId, currentUserId]);
+  const { error, mutate: deletePost, isPending } = useDeletePost();
+
   return (
     <div className="rounded-xl relative grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
       {postBelongsToUser && (
         <>
-          <button className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-4 z-100 p-1 transition hover:text-red-500">
+          <Modal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title="Delete"
+            content={"are you sure you want to delete the post"}
+            onComplete={() => {
+              deletePost(Number(id));
+              toast.success("Post deleted successfully");
+            }}
+            error={error}
+            isLoading={isPending}
+          />
+          <button
+            className="flex items-center justify-center rounded-full  cursor-pointer absolute top-4 right-4 z-100 p-1 transition hover:text-red-500"
+            onClick={() => setModalOpen(true)}
+          >
             <TrashIcon />
           </button>
           <Link
