@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import Envelope from "./Icons/Envelope";
 import Input from "./Input";
@@ -114,6 +114,9 @@ export default function SignInForm() {
           {isSigningIn ? "Signing in..." : "Sign In to Archive"}
         </button>
       </form>
+      <p className="w-full text-center text-blue-500 hover:text-blue-700 hover:underline">
+        <Link to={"/"}>Or Browse Home Feed Freely </Link>
+      </p>
     </div>
   );
 }

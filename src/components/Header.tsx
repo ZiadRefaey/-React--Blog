@@ -1,10 +1,11 @@
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import Avatar from "./Avatar";
 import MobileNavbar from "./MobileNavbar";
 import MoonIcon from "./MoonIcon";
 import Navbar from "./Navbar";
 import SunIcon from "./Icons/SunIcon";
 import Logo from "/logo.svg";
+import { UserAuth } from "../providers/AuthContext";
 
 export default function Header({
   handleToggleTheme,
@@ -14,6 +15,7 @@ export default function Header({
   theme: string | null;
 }) {
   const { pathname } = useLocation();
+  const { session } = UserAuth();
   return (
     <>
       <header
@@ -31,7 +33,16 @@ export default function Header({
               <SunIcon />
             )}
           </button>
-          <Avatar />
+          {session ? (
+            <Avatar />
+          ) : (
+            <Link
+              className="px-4 py-2 bg-primary text-background rounded-xl hover:bg-secondary transition"
+              to={"/auth"}
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </header>
       {pathname !== "/auth" && <MobileNavbar />}
