@@ -1,6 +1,6 @@
 export default function AuthDetails() {
   return (
-    <div className="bg-slate-800 flex flex-col items-start justify-center p-12 gap-4">
+    <div className="bg-slate-800 hidden md:flex flex-col items-start justify-center p-12 gap-4">
       <img src="/logo.svg" />
       <div className="flex items-start justify-start gap-2 flex-col">
         <h1 className="text-5xl font-bold  leading-12">

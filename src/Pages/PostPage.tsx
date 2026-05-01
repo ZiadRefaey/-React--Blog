@@ -11,12 +11,12 @@ export default function PostPage() {
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   return (
-    <Main className="pb-10">
-      <h1 className="text-5xl font-bold text-mute max-w-xl leading-16">
+    <Main className="px-6 pb-24 lg:px-0 lg:pb-10">
+      <h1 className="text-4xl font-bold text-mute max-w-xl leading-tight md:text-5xl md:leading-16">
         {post.title}
       </h1>
       <div>
-        <div className="w-full h-100 object-cover mt-10 rounded-xl overflow-hidden">
+        <div className="w-full h-64 object-cover mt-8 rounded-xl overflow-hidden md:h-100 md:mt-10">
           <img
             src={post.image_url}
             className="w-full h-full object-cover"
@@ -24,10 +24,10 @@ export default function PostPage() {
           />
         </div>
       </div>
-      <p className="text-mute-secondary mt-10">{post.content}</p>
-      <div className="w-full relative  bg-card-background rounded-xl p-6 pr-18 my-10">
-        <img src="/Quote.svg" className="absolute top-6 right-6" />
-        <p className="text-mute-secondary text-2xl font-bold">
+      <p className="text-mute-secondary mt-8 md:mt-10">{post.content}</p>
+      <div className="w-full relative bg-card-background rounded-xl p-5 my-8 md:p-6 md:pr-18 md:my-10">
+        <img src="/Quote.svg" className="absolute top-5 right-5 w-8 md:top-6 md:right-6 md:w-auto" />
+        <p className="text-mute-secondary text-xl font-bold pr-10 md:text-2xl md:pr-0">
           "His power is not in what he possesses, but in how he discards what he
           no longer needs. It is the ultimate expression of predatory
           evolution."

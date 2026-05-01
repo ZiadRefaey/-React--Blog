@@ -12,7 +12,7 @@ export default function AuthForms() {
   }
 
   return (
-    <div className="w-full h-full flex items-start justify-center flex-col p-12 gap-5 ">
+    <div className="w-full h-full flex items-start justify-start flex-col p-12 gap-5 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <div className="bg-slate-800 w-full p-1 grid grid-cols-2 rounded-xl gap-2">
         <button
           onClick={() => handleSwitchForm("sign-in")}

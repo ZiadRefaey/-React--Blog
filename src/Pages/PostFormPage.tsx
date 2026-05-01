@@ -89,12 +89,12 @@ export default function PostFormPage() {
   };
 
   return (
-    <Main className=" pb-10 ">
+    <Main className="px-6 pb-24 lg:px-0 lg:pb-10">
       <form
-        className="grid grid-cols-[3fr_1fr] gap-10 items-start"
+        className="grid grid-cols-1 gap-10 items-start lg:grid-cols-[3fr_1fr]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className=" col-span-2 w-full">
+        <div className="w-full lg:col-span-2">
           <input
             {...register("title", {
               required: "Title is required",
@@ -104,7 +104,7 @@ export default function PostFormPage() {
               },
             })}
             type="text"
-            className="col-span-2 w-full text-5xl outline-none placeholder:text-slate-600 font-bold mb-4"
+            className="w-full text-4xl outline-none placeholder:text-slate-600 font-bold mb-4 md:text-5xl"
             placeholder="Post Title..."
           />
           {errors.title && (
