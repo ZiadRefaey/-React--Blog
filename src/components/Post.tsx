@@ -36,7 +36,7 @@ export default function Post({
   const { error, mutate: deletePost, isPending } = useDeletePost();
 
   return (
-    <div className="rounded-xl relative grid-[1fr_1fr] object-cover overflow-hidden bg-card-background max-h-150">
+    <div className="rounded-xl relative grid-[1fr_1fr] object-cover overflow-hidden bg-card-background h-120">
       {postBelongsToUser && (
         <>
           <Modal
@@ -78,7 +78,7 @@ export default function Post({
       </div>
       <div className="w-full p-6 flex items-start justify-center gap-4 flex-col ">
         <p className="text-mute font-bold text-xl">{title}</p>
-        <p className="text-mute text-sm ">{truncateString(content, 30)}</p>
+        <p className="text-mute text-sm ">{truncateString(content, 15)}</p>
         <div className="w-full h-[0.25px] border border-mute/10 "></div>
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center justify-center gap-2 text-mute-secondary">

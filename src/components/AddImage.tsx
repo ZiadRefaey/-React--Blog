@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CameraIcon from "./CameraIcon";
+import CameraIcon from "./Icons/CameraIcon";
 import type {
   FieldValues,
   Path,

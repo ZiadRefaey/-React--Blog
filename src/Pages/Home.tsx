@@ -10,9 +10,8 @@ export default function Home() {
   if (isError) {
     return <div>{error.message}</div>;
   }
-  console.log(posts);
   return (
-    <Main className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+    <Main className="w-full pb-5 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
       {posts.map((post) => (
         <Post
           key={post.id}
