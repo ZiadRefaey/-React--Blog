@@ -35,10 +35,10 @@ function App() {
         <Header theme={theme} handleToggleTheme={handleToggleTheme} />
         <Routes>
           <Route element={<Home />} path="/" />
-          <Route element={<ProtectedRoute />}>
-            <Route element={<PostPage />} path="/posts/:id" />
-            <Route element={<PostFormPage />} path="/post-form/:id" />
-          </Route>
+          {/* <Route element={<ProtectedRoute />}> */}
+          <Route element={<PostPage />} path="/posts/:id" />
+          <Route element={<PostFormPage />} path="/post-form/:id" />
+          {/* </Route> */}
           <Route element={<Authentication />} path="/auth" />
         </Routes>
       </div>

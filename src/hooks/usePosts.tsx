@@ -16,6 +16,5 @@ export default function usePosts() {
       }));
       return formattedData;
     },
-    staleTime: 1000 * 60 * 2, // 2 minutes
   });
 }

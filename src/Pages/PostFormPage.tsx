@@ -1,6 +1,5 @@
 import Main from "../components/Main";
 import AddImage from "../components/AddImage";
-import AddTags from "../components/AddTags";
 import ArchiveControl from "../components/ArchiveControl";
 import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -159,7 +158,7 @@ export default function PostFormPage() {
               </p>
             )}
           </div>
-          <AddTags />
+          د{" "}
         </div>
       </form>
     </Main>
