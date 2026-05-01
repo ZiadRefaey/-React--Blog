@@ -66,10 +66,7 @@ export default function Post({
         </>
       )}
 
-      <div className="w-full h-[60%] object-cover relative">
-        <span className="px-4 py-1 text-xs text-background font-bold uppercase bg-secondary absolute top-4 left-4 rounded-lg">
-          Ionia
-        </span>
+      <div className="w-full h-[60%] object-cover">
         <img
           src={imageUrl}
           alt={`${title}'s image`}

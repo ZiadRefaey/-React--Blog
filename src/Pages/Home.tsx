@@ -20,7 +20,7 @@ export default function Home() {
     );
   }
   return (
-    <Main className="w-full pb-5 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+    <Main className="w-full px-6 pb-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 lg:px-0 lg:pb-5">
       {posts.map((post) => (
         <Post
           key={post.id}
