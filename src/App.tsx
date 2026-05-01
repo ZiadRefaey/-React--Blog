@@ -8,6 +8,7 @@ import PostPage from "./Pages/PostPage";
 import Authentication from "./Pages/Authentication";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PostFormPage from "./Pages/PostFormPage";
+import ProtectedRoute from "./Pages/ProtectedRoute";
 
 function App() {
   const [theme, setTheme] = useState<string | null>(
@@ -34,8 +35,10 @@ function App() {
         <Header theme={theme} handleToggleTheme={handleToggleTheme} />
         <Routes>
           <Route element={<Home />} path="/" />
-          <Route element={<PostPage />} path="/posts/:id" />
-          <Route element={<PostFormPage />} path="/post-form/:id" />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<PostPage />} path="/posts/:id" />
+            <Route element={<PostFormPage />} path="/post-form/:id" />
+          </Route>
           <Route element={<Authentication />} path="/auth" />
         </Routes>
       </div>
